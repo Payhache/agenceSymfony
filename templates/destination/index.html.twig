@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DestinationController!{% endblock %}
+
+{% block body %}
+<nav>
+    <a href="default"> # Acceuil </a>
+    <a href="sejour"> # Séjours </a>
+    <a href="/destination"> # Destinations </a>
+</nav>
+
+<h1>Choississez votre destination : </h1>
+    <ul>
+    <li><a href="{{path('destination_environement', {'environement' : 'soleil'})}}"> Soleil </a></li>
+    <li><a href="{{path('destination_environement', {'environement' : 'ski'})}}"> Ski </a></li>
+    <li><a href="{{path('destination_environement', {'environement' : 'campagne'})}}"> campagne </a></li>
+    </ul>
+
+
+{% endblock %}
+
