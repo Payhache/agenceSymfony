@@ -12,5 +12,6 @@
 {% elseif environement == 'campagne' %}
     <p>TROP COOOL, on se la coule douce ! </p>
 {% endif %}
+<img src="{{ asset('img/') ~ environement ~ '.jpg' }}" alt="">
 {% endblock %}
 
