@@ -7,7 +7,7 @@
 <h1>Choississez votre destination : </h1>
     <ul>
     {% for dest in destinations %}
-        <li><a href="{{path('destination_environement', {'environement' : dest })}}"> {{ dest}} </a></li>
+        <li > <a class="btn btn-primary" href="{{path('destination_environement', {'environement' : dest })}}"> {{ dest}} </a></li>
     {% endfor %}
     </ul>
 
