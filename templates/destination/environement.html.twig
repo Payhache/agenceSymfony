@@ -1,11 +1,8 @@
-<nav>
-    <a href="default"> # Acceuil </a>
-    <a href="sejour"> # Séjours </a>
-    <a href="destination"> # Destinations </a>
-</nav>
+{% extends 'base.html.twig' %}
 
 
-
+{% block body %}
+    
 <h1> Votre choix  </h1>
 
 {% if environement == 'ski' %}
@@ -15,3 +12,5 @@
 {% elseif environement == 'campagne' %}
     <p>TROP COOOL, on se la coule douce ! </p>
 {% endif %}
+{% endblock %}
+

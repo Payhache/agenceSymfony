@@ -12,8 +12,9 @@ class DestinationController extends AbstractController
      */
     public function index()
     {
+        $destinations = ['soleil', 'ski', 'campagne', 'test'];
         return $this->render('destination/index.html.twig', [
-            'controller_name' => 'DestinationController',
+            'destinations' => $destinations,
         ]);
     }
 
