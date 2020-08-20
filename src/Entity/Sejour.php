@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SejourRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -38,19 +40,26 @@ class Sejour
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="sejours")
      */
-    private $activite1;
+    private $category;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToMany(targetEntity=Destination::class, mappedBy="sejour")
      */
-    private $activite2;
+    private $destinations;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToMany(targetEntity=Activity::class, mappedBy="sejour")
      */
-    private $activite3;
+    private $activities;
+
+    public function __construct()
+    {
+        $this->destinations = new ArrayCollection();
+        $this->activities = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -105,39 +114,72 @@ class Sejour
         return $this;
     }
 
-    public function getActivite1(): ?string
+    public function getCategory(): ?category
     {
-        return $this->activite1;
+        return $this->category;
     }
 
-    public function setActivite1(string $activite1): self
+    public function setCategory(?category $category): self
     {
-        $this->activite1 = $activite1;
+        $this->category = $category;
 
         return $this;
     }
 
-    public function getActivite2(): ?string
+    /**
+     * @return Collection|Destination[]
+     */
+    public function getDestinations(): Collection
     {
-        return $this->activite2;
+        return $this->destinations;
     }
 
-    public function setActivite2(string $activite2): self
+    public function addDestination(Destination $destination): self
     {
-        $this->activite2 = $activite2;
+        if (!$this->destinations->contains($destination)) {
+            $this->destinations[] = $destination;
+            $destination->addSejour($this);
+        }
 
         return $this;
     }
 
-    public function getActivite3(): ?string
+    public function removeDestination(Destination $destination): self
     {
-        return $this->activite3;
-    }
-
-    public function setActivite3(string $activite3): self
-    {
-        $this->activite3 = $activite3;
+        if ($this->destinations->contains($destination)) {
+            $this->destinations->removeElement($destination);
+            $destination->removeSejour($this);
+        }
 
         return $this;
     }
+
+    /**
+     * @return Collection|Activity[]
+     */
+    public function getActivities(): Collection
+    {
+        return $this->activities;
+    }
+
+    public function addActivity(Activity $activity): self
+    {
+        if (!$this->activities->contains($activity)) {
+            $this->activities[] = $activity;
+            $activity->addSejour($this);
+        }
+
+        return $this;
+    }
+
+    public function removeActivity(Activity $activity): self
+    {
+        if ($this->activities->contains($activity)) {
+            $this->activities->removeElement($activity);
+            $activity->removeSejour($this);
+        }
+
+        return $this;
+    }
+
 }

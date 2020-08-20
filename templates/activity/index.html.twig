@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ActivityController!{% endblock %}
+
+{% block body %}
+
+<div class="example-wrapper">
+    <h1> Les activités </h1>
+
+    
+    <ul>
+    {% for act in activities %}
+        <a href="{{path('activity_display', {'activity' : act.id })}}"><li> {{act.name }} </li></a>
+    {% endfor %}
+    </ul>
+</div>
+{% endblock %}

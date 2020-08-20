@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\DestinationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -41,6 +43,16 @@ class Destination
      * @ORM\Column(type="integer")
      */
     private $nb_star;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=sejour::class, inversedBy="destinations")
+     */
+    private $sejour;
+
+    public function __construct()
+    {
+        $this->sejour = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -103,6 +115,32 @@ class Destination
     public function setNbStar(int $nb_star): self
     {
         $this->nb_star = $nb_star;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|sejour[]
+     */
+    public function getSejour(): Collection
+    {
+        return $this->sejour;
+    }
+
+    public function addSejour(sejour $sejour): self
+    {
+        if (!$this->sejour->contains($sejour)) {
+            $this->sejour[] = $sejour;
+        }
+
+        return $this;
+    }
+
+    public function removeSejour(sejour $sejour): self
+    {
+        if ($this->sejour->contains($sejour)) {
+            $this->sejour->removeElement($sejour);
+        }
 
         return $this;
     }
