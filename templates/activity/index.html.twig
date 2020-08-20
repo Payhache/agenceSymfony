@@ -10,7 +10,8 @@
     
     <ul>
     {% for act in activities %}
-        <a href="{{path('activity_display', {'activity' : act.id })}}"><li> {{act.name }} </li></a>
+        <a href="{{path('activity_display', {'activity' : act.id })}}"><li> {{act.name }}</a>
+        <a class="badge badge-danger" href="{{path('activity_delete', {'activity' : act.id })}}">  supprimer </a> </li>
     {% endfor %}
     </ul>
 </div>
