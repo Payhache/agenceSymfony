@@ -19,6 +19,14 @@ class ActivityRepository extends ServiceEntityRepository
         parent::__construct($registry, Activity::class);
     }
 
+    public function searchActivity($value) {
+        return $this->createQueryBuilder('activity')
+            ->Where('activity.name LIKE :val')
+            ->setParameter('val', '%'.$value.'%')
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Activity[] Returns an array of Activity objects
     //  */

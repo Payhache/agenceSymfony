@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="">
+<h1> Activitées cherchée : !</h1>
+
+    <ol>
+        {% for act in activities %}
+            <li> {{act.name }}</li>
+        {% endfor %}
+    </ol>
+
+</div>
+{% endblock %}

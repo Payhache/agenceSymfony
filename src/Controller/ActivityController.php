@@ -10,17 +10,36 @@ class ActivityController extends AbstractController
 {
     /**
      * @Route("/activity", name="activity")
+     * @Route("/activity/{page}", name="activity_page")
      */
-    public function index()
+    public function index($page = 1)
     {
+        $actPerPage = 5;
         $activities = $this
-            ->getDoctrine()
-            ->getRepository(Activity::class)
-            ->findAll();
+        ->getDoctrine()
+        ->getRepository(Activity::class);
+        $countActivities = $activities->count([]);
+        $nbrPages = ceil($countActivities/$actPerPage);
+
         return $this->render('activity/index.html.twig', [
+            'pages' => $nbrPages,
             'activities' => $activities
         ]);
     }
+        /**
+     * @Route("/activity/search/{search}", name="activity_search")
+     */
+    public function displaySearch($search) {
+        $manager = $this
+            ->getDoctrine()
+            ->getRepository(Activity::class);
+        $activitySearch = $manager->searchActivity($search);
+        return $this->render('activity/activity_search.html.twig', [
+            'activities' => $activitySearch
+        ]);
+
+    }
+
     /**
      * @Route("/activity/add", name="activity_add")
      */
@@ -44,14 +63,23 @@ class ActivityController extends AbstractController
             'activity' => $activity
         ]);
     }
-        /**
+    /**
      * @Route("/activity/{activity}/delete", name="activity_delete")
      */
     public function activityDelete(Activity $activity) {
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->remove($activity);
         $entityManager->flush();
-        return $this->render('activity/activity_delete.html.twig');
+        return $this->redirectToRoute('activity');
     }
+    /**
+     * @Route("/activity/{activity}/update", name="activity_update")
+     */
+    public function activityUpdate(Activity $activity) {
+        $activity->setName('toto');
+        $entityManager = $this->getDoctrine()->getManager()->flush();
+        return $this->render('activity/activity_update.html.twig');
+    }
+
 
 }
