@@ -7,19 +7,22 @@
 <div class="example-wrapper">
     <h1> Les activités </h1>
 
+    <ul>
+        {% for act in result %}
+           <li> {{act.id }}
+                <a href="{{path('activity_display', {'activity' : act.id })}}">
+              {{act.name }}</a>
+                <a class="badge badge-danger" href="{{path('activity_delete', {'activity' : act.id })}}">  supprimer </a> 
+                <a class="badge badge-primary" href="{{path('activity_update', {'activity' : act.id })}}">  modifier </a> 
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+
 
     {% for i in 1..pages %}
     <a href="{{path('activity_page', {'page' : i} )}}"> page {{ i }} </a> 
     {% endfor %}
 
-    <ol>
-        {% for act in activities %}
-            <a href="{{path('activity_display', {'activity' : act.id })}}">
-            <li> {{act.name }}</a>
-                <a class="badge badge-danger" href="{{path('activity_delete', {'activity' : act.id })}}">  supprimer </a> 
-                <a class="badge badge-primary" href="{{path('activity_update', {'activity' : act.id })}}">  modifier </a> 
-            </li>
-        {% endfor %}
-    </ol>
-</div>
 {% endblock %}

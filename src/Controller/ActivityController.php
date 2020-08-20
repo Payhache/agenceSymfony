@@ -21,9 +21,10 @@ class ActivityController extends AbstractController
         $countActivities = $activities->count([]);
         $nbrPages = ceil($countActivities/$actPerPage);
 
+        $resultToShow = $activities->activityPagination($actPerPage, $page);
         return $this->render('activity/index.html.twig', [
+            'result' => $resultToShow,
             'pages' => $nbrPages,
-            'activities' => $activities
         ]);
     }
         /**

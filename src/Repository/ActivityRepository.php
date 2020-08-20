@@ -19,6 +19,13 @@ class ActivityRepository extends ServiceEntityRepository
         parent::__construct($registry, Activity::class);
     }
 
+    public function activityPagination($nbrelemntToShow, $pageSelected) {
+        return $this->createQueryBuilder('activity')
+        ->setMaxResults($nbrelemntToShow)
+        ->setFirstResult($nbrelemntToShow * ($pageSelected - 1))
+        ->getQuery()->getResult();
+    }
+
     public function searchActivity($value) {
         return $this->createQueryBuilder('activity')
             ->Where('activity.name LIKE :val')
