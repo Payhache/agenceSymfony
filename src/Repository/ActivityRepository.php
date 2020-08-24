@@ -27,6 +27,13 @@ class ActivityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findPaginate($nbElement, $pageAffiche) {
+        return $this->createQueryBuilder('act')
+            ->setMaxResults($nbElement)
+            ->setFirstResult($nbElement * ($pageAffiche -1))
+            ->getQuery()->getResult();
+    }
+
     // /**
     //  * @return Activity[] Returns an array of Activity objects
     //  */

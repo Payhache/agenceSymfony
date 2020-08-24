@@ -45,7 +45,7 @@ class Destination
     private $nb_star;
 
     /**
-     * @ORM\ManyToMany(targetEntity=sejour::class, inversedBy="destinations")
+     * @ORM\ManyToMany(targetEntity=Sejour::class, inversedBy="destinations")
      */
     private $sejour;
 
