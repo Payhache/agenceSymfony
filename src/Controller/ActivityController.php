@@ -81,10 +81,21 @@ class ActivityController extends AbstractController
     /**
      * @Route("/activity/{activity}/update", name="activity_update")
      */
-    public function activityUpdate(Activity $activity) {
-        $activity->setName('toto');
-        $entityManager = $this->getDoctrine()->getManager()->flush();
-        return $this->render('activity/activity_update.html.twig');
+    public function activityUpdate(Activity $activity, Request $request, EntityManagerInterface $em) {
+        $form = $this->createForm(ActivityType::class, $activity);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $activity = $form->getData();
+            $em->flush();
+            return $this->redirectToRoute('activity');
+        } else {
+            dump($form->getErrors());
+            return $this->render('activity/activity_edit.html.twig', [
+                'form' => $form->createView(),
+                'errors' => $form->getErrors(),
+                'activity' => $activity
+                ]);
+            }
     }
 
 
