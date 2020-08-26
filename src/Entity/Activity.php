@@ -41,6 +41,11 @@ class Activity
      */
     private $sejour;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $picture;
+
     public function __construct()
     {
         $this->sejour = new ArrayCollection();
@@ -92,6 +97,18 @@ class Activity
     public function setSejour(?Sejour $sejour): self
     {
         $this->sejour = $sejour;
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): self
+    {
+        $this->picture = $picture;
 
         return $this;
     }

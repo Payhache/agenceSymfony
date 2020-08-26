@@ -10,8 +10,11 @@
         {% for act in activities %}
             <a href="{{path('activity_display', {'activity' : act.id })}}">
             <li> {{act.name | capitalize }}</a>
+                <br>    
+                <img src="{{asset('img/' ~ act.picture)}}" width="100" height="100" alt="" srcset="">
+                <br>
                 <a class="badge badge-danger" href="{{path('activity_delete', {'activity' : act.id })}}">  supprimer </a> 
-                <a class="badge badge-primary" href="{{path('activity_update', {'activity' : act.id })}}">  modifier </a> 
+                <a class="badge badge-primary" href="{{path('activity_update', {'activity' : act.id })}}">  modifier </a>
             </li>
         {% endfor %}
     </ul>
