@@ -19,14 +19,15 @@ class SejourFixture extends Fixture
     {
         // $product = new Product();
         // $manager->persist($product);
+        $categoryName = $this->categoryRepository->findAll();
+        $categoryCount = count($categoryName);
         for ($i=0; $i < 10 ; $i++) { 
-            $categoryName = $this->categoryRepository->findOneBy(['name' => 'Soleil']);
             $sejour = new Sejour();
             $sejour->setTitre('Sejour numéro '.$i);
             $sejour->setDescription('Bla bal bala nakakel');
             $sejour->setTypeLogement('type de logement');
             $sejour->setNbPersonne(2 + $i);
-            $sejour->setCategory($categoryName);
+            $sejour->setCategory($categoryName[random_int(0, $categoryCount - 1)]);
             $manager->persist($sejour);
          }
  
